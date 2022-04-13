@@ -1,0 +1,45 @@
+plugins {
+    id 'application'
+    id 'java'
+}
+
+group 'com.lab.dual'
+version '0.1'
+
+repositories {
+    mavenCentral()
+}
+
+application {
+    mainClass = 'Main'
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+run {
+    standardInput = System.in
+}
+
+//don't pay attention to warning highlight, this is a known problem
+//https://intellij-support.jetbrains.com/hc/en-us/community/posts/4409283700626--Groovy-Gradle-manifest-cannot-be-applied-to-groovy-lang-Closure-
+//https://docs.gradle.org/current/javadoc/org/gradle/api/tasks/bundling/Jar.html#manifest-groovy.lang.Closure-
+//https://youtrack.jetbrains.com/issue/IDEA-221641?_ga=2.89539227.1686989099.1649140570-886424754.1648543504
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'Main'
+        )
+    }
+}
